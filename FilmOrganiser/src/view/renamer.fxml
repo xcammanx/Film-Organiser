@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:id="rootVBX" alignment="CENTER" spacing="15.0" styleClass="root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.RenamerController">
+  <Label alignment="CENTER" text="Film Organiser" />
+  <GridPane alignment="CENTER" hgap="10.0" minWidth="-1.0" VBox.vgrow="SOMETIMES">
+    <children>
+      <ChoiceBox fx:id="filmTypeCB" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <items>
+          <FXCollections fx:factory="observableArrayList">
+            <String fx:value="TV" />
+            <String fx:value="Movie" />
+          </FXCollections>
+        </items>
+      </ChoiceBox>
+      <Label text="Source Folder" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+      <TextField fx:id="sourceFolderTF" disable="true" editable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button id="sourceBrowseBTN" fx:id="sourceBrowseBtn" mnemonicParsing="false" onAction="#handleSourceBrowse" text="Browse" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Label text="Desination Folder" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+      <TextField fx:id="destinationFolderTF" disable="true" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button id="destinationBrowseBTN" fx:id="destinationBrowseBtn" mnemonicParsing="false" onAction="#handleDestinationBrowse" text="Browse" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+    </children>
+    <columnConstraints>
+      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-1.0" minWidth="-1.0" percentWidth="15.0" prefWidth="-1.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-1.0" minWidth="-1.0" percentWidth="75.0" prefWidth="-1.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-1.0" minWidth="-1.0" percentWidth="10.0" prefWidth="-1.0" />
+    </columnConstraints>
+    <padding>
+      <Insets left="10.0" right="10.0" fx:id="x1" />
+    </padding>
+    <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+  </GridPane>
+  <Label text="Naming Convention" />
+  <GridPane alignment="CENTER" hgap="10.0" padding="$x1" VBox.vgrow="SOMETIMES">
+    <children>
+      <Label alignment="CENTER" text="Include Season Number" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+      <CheckBox fx:id="seasonNumberCBX" mnemonicParsing="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+      <Label text="Season Precursor" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+      <TextField fx:id="seasonTF" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+      <Label text="Incluse Episode Number" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+      <CheckBox fx:id="episodeNumberCBX" mnemonicParsing="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="Episode Precursor" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField fx:id="episodeTF" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Label text="Separate Season by Folder" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+      <CheckBox fx:id="seasonFolderNumberCBX" mnemonicParsing="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label text="Season Folder Precursor" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TextField fx:id="seasonFolderTF" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+    </children>
+    <columnConstraints>
+      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="-1.0" percentWidth="20.0" prefWidth="-1.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="-1.0" percentWidth="5.0" prefWidth="-1.0" />
+      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="-1.0" percentWidth="20.0" prefWidth="-1.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="-1.0" percentWidth="55.0" prefWidth="-1.0" />
+    </columnConstraints>
+    <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+  </GridPane>
+  <Button fx:id="previewBTN" mnemonicParsing="false" onAction="#preview" text="Preview" />
+  <ProgressBar fx:id="renamingPB" prefWidth="-1.0" progress="0.0" VBox.vgrow="ALWAYS" />
+  <GridPane alignment="CENTER" hgap="10.0" padding="$x1" VBox.vgrow="ALWAYS">
+    <children>
+      <Label text="Current Organisation" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+      <Label text="Future Organisation" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+      <TreeView fx:id="currentNameTV" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" />
+      <TreeView fx:id="futureNameTV" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" />
+    </children>
+    <columnConstraints>
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="300.0" prefHeight="30.0" vgrow="ALWAYS" />
+    </rowConstraints>
+  </GridPane>
+  <Label fx:id="messageLBL" text="" />
+  <Button fx:id="organiseBTN" onAction="#moveFiles" mnemonicParsing="false" text="Organise!" />
+  <padding>
+    <Insets bottom="15.0" top="15.0" />
+  </padding>
+</VBox>
